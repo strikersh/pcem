@@ -6,7 +6,7 @@
 #include "keyboard_at.h"
 #include "mem.h"
 #include "pci.h"
-#include "sio.h"
+#include "superio.h"
 #include "x86.h"
 
 #include "i430lx.h"

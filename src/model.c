@@ -62,7 +62,7 @@
 #include "scamp.h"
 #include "scat.h"
 #include "serial.h"
-#include "sio.h"
+#include "superio.h"
 #include "sis496.h"
 #include "sl82c460.h"
 #include "sound_ps1.h"
@@ -709,7 +709,7 @@ void at_batman_init()
         pci_slot(0xe);
         pci_slot(0x6);
         i430lx_init();
-        sio_init(2, 0xc, 0xe, 0x6, 0);
+        superio_init(2, 0xc, 0xe, 0x6, 0);
         fdc37c665_init();
         intel_batman_init();
         device_add(&intel_flash_bxt_ami_device);
@@ -722,7 +722,7 @@ void at_pb520r_init()
         pci_slot(0xe);
         pci_slot(0x6);
         i430lx_init();
-        sio_init(2, 0xc, 0xe, 0x6, 0);
+        superio_init(2, 0xc, 0xe, 0x6, 0);
         cmd640b_init(1);
         aip_82091aa_init(0x22);
         intel_batman_init();
