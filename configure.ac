@@ -1,8 +1,8 @@
 # configure.ac for PCem
 #
 
-AC_PREREQ([2.61])
-AC_INIT(PCem, v17, Sarah Walker <pcem@pcem-emulator.co.uk>, pcem)
+AC_PREREQ([2.71])
+AC_INIT([PCem],[v17],[Sarah Walker <pcem@pcem-emulator.co.uk>],[pcem])
 
 AC_CANONICAL_HOST
 
@@ -15,7 +15,7 @@ AM_PROG_CC_C_O
 
 AC_MSG_CHECKING([whether to build for release])
 AC_ARG_ENABLE(release_build,
-          AC_HELP_STRING([--enable-release-build], [build for release]))
+          AS_HELP_STRING([--enable-release-build],[build for release]))
 if test "$enable_release_build" = "yes"; then
    AC_MSG_RESULT([yes])
 else
@@ -25,7 +25,7 @@ AM_CONDITIONAL(RELEASE_BUILD, [test "$enable_release_build" = "yes"])
 
 AC_MSG_CHECKING([whether to enable debugging])
 AC_ARG_ENABLE(debug,
-          AC_HELP_STRING([--enable-debug], [build debug executable]))
+          AS_HELP_STRING([--enable-debug],[build debug executable]))
 if test "$enable_debug" = "yes"; then
    CFLAGS="-Wall -O0 -g -D_DEBUG -fcommon"
    CXXFLAGS="-Wall -O0 -g -D_DEBUG -fcommon"
@@ -38,7 +38,7 @@ fi
 
 AC_MSG_CHECKING([whether to enable networking])
 AC_ARG_ENABLE(networking,
-          AC_HELP_STRING([--enable-networking], [enable networking]))
+          AS_HELP_STRING([--enable-networking],[enable networking]))
 if test "$enable_networking" = "yes"; then
    AC_MSG_RESULT([yes])
 else
@@ -47,7 +47,7 @@ fi
 
 AC_MSG_CHECKING([whether to use ALSA for MIDI output])
 AC_ARG_ENABLE(alsa,
-          AC_HELP_STRING([--enable-alsa], [use ALSA for MIDI]))
+          AS_HELP_STRING([--enable-alsa],[use ALSA for MIDI]))
 if test "$enable_alsa" = "yes"; then
    AC_MSG_RESULT([yes])
 else
@@ -135,6 +135,9 @@ build_linux="no"
 build_win="no"
 build_other="no"
 
+CXXFLAGS="$CXXFLAGS $WX_CXXFLAGS"
+CFLAGS="$CFLAGS $WX_CFLAGS"
+
 case "$host" in
     *-*-darwin*)
        LIBS="$LIBS -framework OpenGL"
@@ -172,6 +175,19 @@ case "$host" in
            exit -1])
        build_other="yes"
        ;;
+    *-*-openbsd*)
+       INC_PATH="-I/usr/local/include -I/usr/X11R6/include/libdrm"
+       CFLAGS="$CFLAGS $INC_PATH"
+       CXXFLAGS="$CXXFLAGS $INC_PATH"
+       LDFLAGS="$LDFLAGS -L/usr/local/lib -L/usr/X11R6/lib"
+       AC_CHECK_LIB([GL], [glGetError], [], \
+           [echo "You need to install the OpenGL library."
+           exit -1])
+       AC_CHECK_LIB([openal], [alGetError], [], \
+           [echo "You need to install the OpenAL library."
+           exit -1])
+       build_other="yes"
+       ;;
     *)
        AC_CHECK_LIB([GL], [glGetError], [], \
            [echo "You need to install the OpenGL library."
@@ -190,4 +206,7 @@ AM_CONDITIONAL(OS_WINDOWS, [test "$build_win" = "yes"])
 AM_CONDITIONAL(OS_OTHER, [test "$build_other" = "yes"])
 AM_CONDITIONAL(OS_MACOSX, [test "$build_macosx" = "yes"])
 
-AC_OUTPUT([Makefile src/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile])
+AC_OUTPUT
+m4_unquote(
+  _m4_defn([_m4_wrap_text])_m4_popdef([_m4_wrap_text]))

@@ -5,7 +5,7 @@
   fbzColorPath
 */
 
-#if defined(__linux__) || defined(__APPLE__)
+#if defined(__unix__) || defined(__APPLE__)
 #include <sys/mman.h>
 #include <unistd.h>
 #endif

@@ -1,6 +1,6 @@
 #define _LARGEFILE_SOURCE
-#define _LARGEFILE64_SOURCE
-#define _GNU_SOURCE
+#define _FILE_OFFSET_BITS 64
+#define _POSIX_C_SOURCE
 #include <errno.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -109,7 +109,7 @@ void mfm_irq_update(mfm_t *mfm)
 /*
  * Return the sector offset for the current register values
  */
-static int mfm_get_sector(mfm_t *mfm, off64_t *addr)
+static int mfm_get_sector(mfm_t *mfm, off_t *addr)
 {
         mfm_drive_t *drive = &mfm->drives[mfm->drive_sel];
         int heads = drive->cfg_hpc;
@@ -141,7 +141,7 @@ static int mfm_get_sector(mfm_t *mfm, off64_t *addr)
                 return 1;
         }
 
-        *addr = ((((off64_t) mfm->cylinder * heads) + mfm->head) *
+        *addr = ((((off_t) mfm->cylinder * heads) + mfm->head) *
         	          sectors) + (mfm->sector - 1);
         
         return 0;
@@ -413,7 +413,7 @@ void mfm_callback(void *p)
 {
         mfm_t *mfm = (mfm_t *)p;
         mfm_drive_t *drive = &mfm->drives[mfm->drive_sel];
-        off64_t addr;
+        off_t addr;
         
 //        pclog("mfm_callback: command=%02x reset=%i\n", mfm->command, mfm->reset);
 

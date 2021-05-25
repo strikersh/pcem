@@ -238,7 +238,7 @@ int dir_exists(char* path)
 
 void get_pcem_path(char *s, int size)
 {
-#ifdef __linux
+#if defined(__unix__)
         wx_get_home_directory(s);
         strcat(s, ".pcem/");
 #else
@@ -511,7 +511,7 @@ int pc_main(int argc, char** argv)
 {
         paths_init();
 
-#ifdef __linux__
+#if defined(__unix__)
         char s[1024];
         /* create directories if they don't exist */
         if (!wx_setup(pcem_path))
@@ -538,7 +538,7 @@ int pc_main(int argc, char** argv)
 
         sound_init();
 
-#ifdef __linux__
+#if defined(__unix__)
         /* check if cfg exists, and if not create it */
         append_filename(s, pcem_path, "pcem.cfg", 511);
         if (!wx_file_exists(s))

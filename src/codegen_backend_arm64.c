@@ -11,7 +11,7 @@
 #include "x86.h"
 #include "x87.h"
 
-#if defined(__linux__) || defined(__APPLE__)
+#if defined(__unix__) || defined(__APPLE__)
 #include <sys/mman.h>
 #include <unistd.h>
 #endif
@@ -278,7 +278,7 @@ void codegen_backend_init()
 {
 	codeblock_t *block;
         int c;
-#if defined(__linux__) || defined(__APPLE__)
+#if defined(__unix__) || defined(__APPLE__)
 	void *start;
 	size_t len;
 	long pagesize = sysconf(_SC_PAGESIZE);

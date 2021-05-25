@@ -1,6 +1,6 @@
 #define _LARGEFILE_SOURCE
-#define _LARGEFILE64_SOURCE
-#define _GNU_SOURCE
+#define _FILE_OFFSET_BITS 64
+#define _POSIX_C_SOURCE
 #include <errno.h>
 
 #include "ibm.h"
@@ -14,9 +14,9 @@ void hdd_load_ext(hdd_file_t *hdd, const char *fn, int spt, int hpc, int tracks,
         {
 		/* Try to open existing hard disk image */
 		if (read_only)
-                        hdd->f = (void*)fopen64(fn, "rb");
+                        hdd->f = (void*)fopen(fn, "rb");
 		else
-                        hdd->f = (void*)fopen64(fn, "rb+");
+                        hdd->f = (void*)fopen(fn, "rb+");
                 if (hdd->f != NULL)
                 {
                         hdd->img_type = HDD_IMG_RAW;
@@ -59,7 +59,7 @@ void hdd_load_ext(hdd_file_t *hdd, const char *fn, int spt, int hpc, int tracks,
                         {
 				/* Failed because it does not exist,
 				   so try to create new file */
-				hdd->f = (void*)fopen64(fn, "wb+");
+				hdd->f = (void*)fopen(fn, "wb+");
 				if (hdd->f == NULL)
                                 {
 					pclog("Cannot create file '%s': %s",
@@ -121,14 +121,14 @@ int hdd_read_sectors(hdd_file_t *hdd, int offset, int nr_sectors, void *buffer)
         }
         else if (hdd->img_type == HDD_IMG_RAW)
         {
-                off64_t addr;
+                off_t addr;
                 int transfer_sectors = nr_sectors;
 
                 if ((hdd->sectors - offset) < transfer_sectors)
                         transfer_sectors = hdd->sectors - offset;
                 addr = (uint64_t)offset * 512;
 
-                fseeko64((FILE*)hdd->f, addr, SEEK_SET);
+                fseeko((FILE*)hdd->f, addr, SEEK_SET);
                 fread(buffer, transfer_sectors*512, 1, (FILE*)hdd->f);
 
                 if (nr_sectors != transfer_sectors)
@@ -147,7 +147,7 @@ int hdd_write_sectors(hdd_file_t *hdd, int offset, int nr_sectors, void *buffer)
         }
         else if (hdd->img_type == HDD_IMG_RAW)
         {
-                off64_t addr;
+                off_t addr;
                 int transfer_sectors = nr_sectors;
 
                 if (hdd->read_only)
@@ -157,7 +157,7 @@ int hdd_write_sectors(hdd_file_t *hdd, int offset, int nr_sectors, void *buffer)
                         transfer_sectors = hdd->sectors - offset;
                 addr = (uint64_t)offset * 512;
 
-                fseeko64((FILE*)hdd->f, addr, SEEK_SET);
+                fseeko((FILE*)hdd->f, addr, SEEK_SET);
                 fwrite(buffer, transfer_sectors*512, 1, (FILE*)hdd->f);
 
                 if (nr_sectors != transfer_sectors)
@@ -176,7 +176,7 @@ int hdd_format_sectors(hdd_file_t *hdd, int offset, int nr_sectors)
         }
         else if (hdd->img_type == HDD_IMG_RAW)
         {
-                off64_t addr;
+                off_t addr;
                 int c;
                 uint8_t zero_buffer[512];
                 int transfer_sectors = nr_sectors;
@@ -189,7 +189,7 @@ int hdd_format_sectors(hdd_file_t *hdd, int offset, int nr_sectors)
                 if ((hdd->sectors - offset) < transfer_sectors)
                         transfer_sectors = hdd->sectors - offset;
                 addr = (uint64_t)offset * 512;
-                fseeko64((FILE*)hdd->f, addr, SEEK_SET);
+                fseeko((FILE*)hdd->f, addr, SEEK_SET);
                 for (c = 0; c < transfer_sectors; c++)
                         fwrite(zero_buffer, 512, 1, (FILE*)hdd->f);
 

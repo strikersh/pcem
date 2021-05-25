@@ -1,6 +1,6 @@
 #define _LARGEFILE_SOURCE
-#define _LARGEFILE64_SOURCE
-#define _GNU_SOURCE
+#define _FILE_OFFSET_BITS 64
+#define _POSIX_C_SOURCE
 #include <errno.h>
 #include <stdio.h>
 #include <stdint.h>

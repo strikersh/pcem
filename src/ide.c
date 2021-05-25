@@ -1,8 +1,8 @@
 #define IDE_TIME (10 * TIMER_USEC)
 
 #define _LARGEFILE_SOURCE
-#define _LARGEFILE64_SOURCE
-#define _GNU_SOURCE
+#define _FILE_OFFSET_BITS 64
+#define _POSIX_C_SOURCE
 #include <errno.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -195,18 +195,18 @@ static void ide_identify(IDE *ide)
 /*
  * Return the sector offset for the current register values
  */
-static off64_t ide_get_sector(IDE *ide)
+static off_t ide_get_sector(IDE *ide)
 {
         if (ide->lba)
         {
-                return (off64_t)ide->lba_addr + ide->skip512;
+                return (off_t)ide->lba_addr + ide->skip512;
         }
         else
         {
         	int heads = ide->hdd_file.hpc;
         	int sectors = ide->hdd_file.spt;
 
-        	return ((((off64_t) ide->cylinder * heads) + ide->head) *
+        	return ((((off_t) ide->cylinder * heads) + ide->head) *
         	          sectors) + (ide->sector - 1) + ide->skip512;
         }
 }

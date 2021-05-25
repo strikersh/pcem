@@ -1,6 +1,6 @@
 #define _LARGEFILE_SOURCE
-#define _LARGEFILE64_SOURCE
-#define _GNU_SOURCE
+#define _FILE_OFFSET_BITS 64
+#define _POSIX_C_SOURCE
 #include <errno.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -253,7 +253,7 @@ static void xebec_error(xebec_t *xebec, uint8_t error)
         pclog("xebec_error - %02x\n", xebec->error);
 }
 
-static int xebec_get_sector(xebec_t *xebec, off64_t *addr)
+static int xebec_get_sector(xebec_t *xebec, off_t *addr)
 {
         mfm_drive_t *drive = &xebec->drives[xebec->drive_sel];
         int heads = drive->cfg_hpc;
@@ -283,7 +283,7 @@ static int xebec_get_sector(xebec_t *xebec, off64_t *addr)
                 return 1;
         }
 
-        *addr = ((((off64_t) xebec->cylinder * heads) + xebec->head) *
+        *addr = ((((off_t) xebec->cylinder * heads) + xebec->head) *
         	          17) + xebec->sector;
         
         return 0;
@@ -370,7 +370,7 @@ static void xebec_callback(void *p)
                         xebec->sector_count = xebec->command[4];
                         do
                         {
-                                off64_t addr;
+                                off_t addr;
                                         
 //                                pclog("xebec Verify %i,%i,%i %i\n", xebec->cylinder, xebec->head, xebec->sector, xebec->sector_count);
                                 if (xebec_get_sector(xebec, &addr))
@@ -398,7 +398,7 @@ static void xebec_callback(void *p)
 
                 case CMD_FORMAT_TRACK:
                 {
-                        off64_t addr;
+                        off_t addr;
                         
                         xebec->cylinder = xebec->command[3] | ((xebec->command[2] & 0xc0) << 2);
                         drive->current_cylinder = (xebec->cylinder >= drive->cfg_cyl) ? drive->cfg_cyl-1 : xebec->cylinder;
@@ -432,7 +432,7 @@ static void xebec_callback(void *p)
                         xebec->data_pos = 0;
                         xebec->data_len = 512;
                         {
-                                off64_t addr;
+                                off_t addr;
 
                                 if (xebec_get_sector(xebec, &addr))
                                 {
@@ -486,7 +486,7 @@ static void xebec_callback(void *p)
                         
                         if (xebec->sector_count)
                         {
-                                off64_t addr;
+                                off_t addr;
 
                                 if (xebec_get_sector(xebec, &addr))
                                 {
@@ -569,7 +569,7 @@ static void xebec_callback(void *p)
                                 memcpy(xebec->sector_buf, xebec->data, 512);
 
                         {
-                                off64_t addr;
+                                off_t addr;
                                                 
                                 if (xebec_get_sector(xebec, &addr))
                                 {
