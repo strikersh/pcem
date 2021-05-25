@@ -179,7 +179,7 @@ case "$host" in
        INC_PATH="-I/usr/local/include -I/usr/X11R6/include/libdrm"
        CFLAGS="$CFLAGS $INC_PATH"
        CXXFLAGS="$CXXFLAGS $INC_PATH"
-       LDFLAGS="$LDFLAGS -L/usr/local/lib -L/usr/X11R6/lib"
+       LDFLAGS="$LDFLAGS -L/usr/local/lib -L/usr/X11R6/lib -z wxneeded"
        AC_CHECK_LIB([GL], [glGetError], [], \
            [echo "You need to install the OpenGL library."
            exit -1])

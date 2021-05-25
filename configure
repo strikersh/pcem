@@ -6591,7 +6591,7 @@ fi
        INC_PATH="-I/usr/local/include -I/usr/X11R6/include/libdrm"
        CFLAGS="$CFLAGS $INC_PATH"
        CXXFLAGS="$CXXFLAGS $INC_PATH"
-       LDFLAGS="$LDFLAGS -L/usr/local/lib -L/usr/X11R6/lib"
+       LDFLAGS="$LDFLAGS -L/usr/local/lib -L/usr/X11R6/lib -z wxneeded"
        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for glGetError in -lGL" >&5
 printf %s "checking for glGetError in -lGL... " >&6; }
 if test ${ac_cv_lib_GL_glGetError+y}
