@@ -175,7 +175,7 @@ am__pcem_SOURCES_DIST = 386.c 386_common.c 386_dynarec.c \
 	ppi.c ps1.c ps2.c ps2_mca.c ps2_nvr.c nvr_tc8521.c pzx.c rom.c \
 	rtc.c rtc_tc8521.c scamp.c scat.c scsi.c scsi_53c400.c \
 	scsi_aha1540.c scsi_cd.c scsi_hd.c scsi_ibm.c scsi_zip.c \
-	serial.c sio.c sis496.c sl82c460.c sound.c sound_ad1848.c \
+	serial.c superio.c sis496.c sl82c460.c sound.c sound_ad1848.c \
 	sound_adlib.c sound_adlibgold.c sound_audiopci.c \
 	sound_azt2316a.c sound_cms.c sound_emu8k.c sound_gus.c \
 	sound_mpu401_uart.c sound_opl.c sound_pas16.c sound_ps1.c \
@@ -372,48 +372,49 @@ am_pcem_OBJECTS = pcem-386.$(OBJEXT) pcem-386_common.$(OBJEXT) \
 	pcem-scsi_53c400.$(OBJEXT) pcem-scsi_aha1540.$(OBJEXT) \
 	pcem-scsi_cd.$(OBJEXT) pcem-scsi_hd.$(OBJEXT) \
 	pcem-scsi_ibm.$(OBJEXT) pcem-scsi_zip.$(OBJEXT) \
-	pcem-serial.$(OBJEXT) pcem-sio.$(OBJEXT) pcem-sis496.$(OBJEXT) \
-	pcem-sl82c460.$(OBJEXT) pcem-sound.$(OBJEXT) \
-	pcem-sound_ad1848.$(OBJEXT) pcem-sound_adlib.$(OBJEXT) \
-	pcem-sound_adlibgold.$(OBJEXT) pcem-sound_audiopci.$(OBJEXT) \
-	pcem-sound_azt2316a.$(OBJEXT) pcem-sound_cms.$(OBJEXT) \
-	pcem-sound_emu8k.$(OBJEXT) pcem-sound_gus.$(OBJEXT) \
-	pcem-sound_mpu401_uart.$(OBJEXT) pcem-sound_opl.$(OBJEXT) \
-	pcem-sound_pas16.$(OBJEXT) pcem-sound_ps1.$(OBJEXT) \
-	pcem-sound_pssj.$(OBJEXT) pcem-sound_sb.$(OBJEXT) \
-	pcem-sound_sb_dsp.$(OBJEXT) pcem-sound_sn76489.$(OBJEXT) \
-	pcem-sound_speaker.$(OBJEXT) pcem-sound_ssi2001.$(OBJEXT) \
-	pcem-sound_wss.$(OBJEXT) pcem-sound_ym7128.$(OBJEXT) \
-	pcem-soundopenal.$(OBJEXT) pcem-sst39sf010.$(OBJEXT) \
-	pcem-superxt.$(OBJEXT) pcem-tandy_eeprom.$(OBJEXT) \
-	pcem-tandy_rom.$(OBJEXT) pcem-t1000.$(OBJEXT) \
-	pcem-t3100e.$(OBJEXT) pcem-timer.$(OBJEXT) \
-	pcem-um8669f.$(OBJEXT) pcem-um8881f.$(OBJEXT) \
-	pcem-vid_ati_eeprom.$(OBJEXT) pcem-vid_ati_mach64.$(OBJEXT) \
-	pcem-vid_ati18800.$(OBJEXT) pcem-vid_ati28800.$(OBJEXT) \
-	pcem-vid_ati68860_ramdac.$(OBJEXT) pcem-vid_cga.$(OBJEXT) \
-	pcem-vid_cl5429.$(OBJEXT) pcem-vid_colorplus.$(OBJEXT) \
-	pcem-vid_compaq_cga.$(OBJEXT) pcem-vid_ddc.$(OBJEXT) \
-	pcem-vid_ega.$(OBJEXT) pcem-vid_et4000.$(OBJEXT) \
-	pcem-vid_et4000w32.$(OBJEXT) pcem-vid_genius.$(OBJEXT) \
-	pcem-vid_hercules.$(OBJEXT) pcem-vid_ht216.$(OBJEXT) \
-	pcem-vid_icd2061.$(OBJEXT) pcem-vid_ics2595.$(OBJEXT) \
-	pcem-vid_im1024.$(OBJEXT) pcem-vid_incolor.$(OBJEXT) \
-	pcem-vid_mda.$(OBJEXT) pcem-vid_mga.$(OBJEXT) \
-	pcem-vid_olivetti_m24.$(OBJEXT) pcem-vid_oti037.$(OBJEXT) \
-	pcem-vid_oti067.$(OBJEXT) pcem-vid_paradise.$(OBJEXT) \
-	pcem-vid_pc200.$(OBJEXT) pcem-vid_pc1512.$(OBJEXT) \
-	pcem-vid_pc1640.$(OBJEXT) pcem-vid_pcjr.$(OBJEXT) \
-	pcem-vid_pgc.$(OBJEXT) pcem-vid_ps1_svga.$(OBJEXT) \
-	pcem-vid_s3.$(OBJEXT) pcem-vid_s3_virge.$(OBJEXT) \
-	pcem-vid_sdac_ramdac.$(OBJEXT) pcem-vid_sigma.$(OBJEXT) \
-	pcem-vid_stg_ramdac.$(OBJEXT) pcem-vid_svga.$(OBJEXT) \
-	pcem-vid_svga_render.$(OBJEXT) pcem-vid_t1000.$(OBJEXT) \
-	pcem-vid_t3100e.$(OBJEXT) pcem-vid_tandy.$(OBJEXT) \
-	pcem-vid_tandysl.$(OBJEXT) pcem-vid_tgui9440.$(OBJEXT) \
-	pcem-vid_tkd8001_ramdac.$(OBJEXT) pcem-vid_tvga.$(OBJEXT) \
-	pcem-vid_unk_ramdac.$(OBJEXT) pcem-vid_vga.$(OBJEXT) \
-	pcem-vid_voodoo.$(OBJEXT) pcem-vid_voodoo_banshee.$(OBJEXT) \
+	pcem-serial.$(OBJEXT) pcem-superio.$(OBJEXT) \
+	pcem-sis496.$(OBJEXT) pcem-sl82c460.$(OBJEXT) \
+	pcem-sound.$(OBJEXT) pcem-sound_ad1848.$(OBJEXT) \
+	pcem-sound_adlib.$(OBJEXT) pcem-sound_adlibgold.$(OBJEXT) \
+	pcem-sound_audiopci.$(OBJEXT) pcem-sound_azt2316a.$(OBJEXT) \
+	pcem-sound_cms.$(OBJEXT) pcem-sound_emu8k.$(OBJEXT) \
+	pcem-sound_gus.$(OBJEXT) pcem-sound_mpu401_uart.$(OBJEXT) \
+	pcem-sound_opl.$(OBJEXT) pcem-sound_pas16.$(OBJEXT) \
+	pcem-sound_ps1.$(OBJEXT) pcem-sound_pssj.$(OBJEXT) \
+	pcem-sound_sb.$(OBJEXT) pcem-sound_sb_dsp.$(OBJEXT) \
+	pcem-sound_sn76489.$(OBJEXT) pcem-sound_speaker.$(OBJEXT) \
+	pcem-sound_ssi2001.$(OBJEXT) pcem-sound_wss.$(OBJEXT) \
+	pcem-sound_ym7128.$(OBJEXT) pcem-soundopenal.$(OBJEXT) \
+	pcem-sst39sf010.$(OBJEXT) pcem-superxt.$(OBJEXT) \
+	pcem-tandy_eeprom.$(OBJEXT) pcem-tandy_rom.$(OBJEXT) \
+	pcem-t1000.$(OBJEXT) pcem-t3100e.$(OBJEXT) \
+	pcem-timer.$(OBJEXT) pcem-um8669f.$(OBJEXT) \
+	pcem-um8881f.$(OBJEXT) pcem-vid_ati_eeprom.$(OBJEXT) \
+	pcem-vid_ati_mach64.$(OBJEXT) pcem-vid_ati18800.$(OBJEXT) \
+	pcem-vid_ati28800.$(OBJEXT) pcem-vid_ati68860_ramdac.$(OBJEXT) \
+	pcem-vid_cga.$(OBJEXT) pcem-vid_cl5429.$(OBJEXT) \
+	pcem-vid_colorplus.$(OBJEXT) pcem-vid_compaq_cga.$(OBJEXT) \
+	pcem-vid_ddc.$(OBJEXT) pcem-vid_ega.$(OBJEXT) \
+	pcem-vid_et4000.$(OBJEXT) pcem-vid_et4000w32.$(OBJEXT) \
+	pcem-vid_genius.$(OBJEXT) pcem-vid_hercules.$(OBJEXT) \
+	pcem-vid_ht216.$(OBJEXT) pcem-vid_icd2061.$(OBJEXT) \
+	pcem-vid_ics2595.$(OBJEXT) pcem-vid_im1024.$(OBJEXT) \
+	pcem-vid_incolor.$(OBJEXT) pcem-vid_mda.$(OBJEXT) \
+	pcem-vid_mga.$(OBJEXT) pcem-vid_olivetti_m24.$(OBJEXT) \
+	pcem-vid_oti037.$(OBJEXT) pcem-vid_oti067.$(OBJEXT) \
+	pcem-vid_paradise.$(OBJEXT) pcem-vid_pc200.$(OBJEXT) \
+	pcem-vid_pc1512.$(OBJEXT) pcem-vid_pc1640.$(OBJEXT) \
+	pcem-vid_pcjr.$(OBJEXT) pcem-vid_pgc.$(OBJEXT) \
+	pcem-vid_ps1_svga.$(OBJEXT) pcem-vid_s3.$(OBJEXT) \
+	pcem-vid_s3_virge.$(OBJEXT) pcem-vid_sdac_ramdac.$(OBJEXT) \
+	pcem-vid_sigma.$(OBJEXT) pcem-vid_stg_ramdac.$(OBJEXT) \
+	pcem-vid_svga.$(OBJEXT) pcem-vid_svga_render.$(OBJEXT) \
+	pcem-vid_t1000.$(OBJEXT) pcem-vid_t3100e.$(OBJEXT) \
+	pcem-vid_tandy.$(OBJEXT) pcem-vid_tandysl.$(OBJEXT) \
+	pcem-vid_tgui9440.$(OBJEXT) pcem-vid_tkd8001_ramdac.$(OBJEXT) \
+	pcem-vid_tvga.$(OBJEXT) pcem-vid_unk_ramdac.$(OBJEXT) \
+	pcem-vid_vga.$(OBJEXT) pcem-vid_voodoo.$(OBJEXT) \
+	pcem-vid_voodoo_banshee.$(OBJEXT) \
 	pcem-vid_voodoo_banshee_blitter.$(OBJEXT) \
 	pcem-vid_voodoo_blitter.$(OBJEXT) \
 	pcem-vid_voodoo_display.$(OBJEXT) pcem-vid_voodoo_fb.$(OBJEXT) \
@@ -713,7 +714,7 @@ pcem_SOURCES = 386.c 386_common.c 386_dynarec.c 386_dynarec_ops.c \
 	ppi.c ps1.c ps2.c ps2_mca.c ps2_nvr.c nvr_tc8521.c pzx.c rom.c \
 	rtc.c rtc_tc8521.c scamp.c scat.c scsi.c scsi_53c400.c \
 	scsi_aha1540.c scsi_cd.c scsi_hd.c scsi_ibm.c scsi_zip.c \
-	serial.c sio.c sis496.c sl82c460.c sound.c sound_ad1848.c \
+	serial.c superio.c sis496.c sl82c460.c sound.c sound_ad1848.c \
 	sound_adlib.c sound_adlibgold.c sound_audiopci.c \
 	sound_azt2316a.c sound_cms.c sound_emu8k.c sound_gus.c \
 	sound_mpu401_uart.c sound_opl.c sound_pas16.c sound_ps1.c \
@@ -1153,7 +1154,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcem-scsi_ibm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcem-scsi_zip.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcem-serial.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcem-sio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcem-sis496.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcem-sl82c460.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcem-sound.Po@am__quote@
@@ -1181,6 +1181,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcem-sound_ym7128.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcem-soundopenal.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcem-sst39sf010.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcem-superio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcem-superxt.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcem-t1000.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pcem-t3100e.Po@am__quote@
@@ -3439,19 +3440,19 @@ pcem-serial.obj: serial.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcem_CFLAGS) $(CFLAGS) -c -o pcem-serial.obj `if test -f 'serial.c'; then $(CYGPATH_W) 'serial.c'; else $(CYGPATH_W) '$(srcdir)/serial.c'; fi`
 
-pcem-sio.o: sio.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcem_CFLAGS) $(CFLAGS) -MT pcem-sio.o -MD -MP -MF $(DEPDIR)/pcem-sio.Tpo -c -o pcem-sio.o `test -f 'sio.c' || echo '$(srcdir)/'`sio.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pcem-sio.Tpo $(DEPDIR)/pcem-sio.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sio.c' object='pcem-sio.o' libtool=no @AMDEPBACKSLASH@
+pcem-superio.o: superio.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcem_CFLAGS) $(CFLAGS) -MT pcem-superio.o -MD -MP -MF $(DEPDIR)/pcem-superio.Tpo -c -o pcem-superio.o `test -f 'superio.c' || echo '$(srcdir)/'`superio.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pcem-superio.Tpo $(DEPDIR)/pcem-superio.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='superio.c' object='pcem-superio.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcem_CFLAGS) $(CFLAGS) -c -o pcem-sio.o `test -f 'sio.c' || echo '$(srcdir)/'`sio.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcem_CFLAGS) $(CFLAGS) -c -o pcem-superio.o `test -f 'superio.c' || echo '$(srcdir)/'`superio.c
 
-pcem-sio.obj: sio.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcem_CFLAGS) $(CFLAGS) -MT pcem-sio.obj -MD -MP -MF $(DEPDIR)/pcem-sio.Tpo -c -o pcem-sio.obj `if test -f 'sio.c'; then $(CYGPATH_W) 'sio.c'; else $(CYGPATH_W) '$(srcdir)/sio.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pcem-sio.Tpo $(DEPDIR)/pcem-sio.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sio.c' object='pcem-sio.obj' libtool=no @AMDEPBACKSLASH@
+pcem-superio.obj: superio.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcem_CFLAGS) $(CFLAGS) -MT pcem-superio.obj -MD -MP -MF $(DEPDIR)/pcem-superio.Tpo -c -o pcem-superio.obj `if test -f 'superio.c'; then $(CYGPATH_W) 'superio.c'; else $(CYGPATH_W) '$(srcdir)/superio.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pcem-superio.Tpo $(DEPDIR)/pcem-superio.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='superio.c' object='pcem-superio.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcem_CFLAGS) $(CFLAGS) -c -o pcem-sio.obj `if test -f 'sio.c'; then $(CYGPATH_W) 'sio.c'; else $(CYGPATH_W) '$(srcdir)/sio.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcem_CFLAGS) $(CFLAGS) -c -o pcem-superio.obj `if test -f 'superio.c'; then $(CYGPATH_W) 'superio.c'; else $(CYGPATH_W) '$(srcdir)/superio.c'; fi`
 
 pcem-sis496.o: sis496.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pcem_CFLAGS) $(CFLAGS) -MT pcem-sis496.o -MD -MP -MF $(DEPDIR)/pcem-sis496.Tpo -c -o pcem-sis496.o `test -f 'sis496.c' || echo '$(srcdir)/'`sis496.c

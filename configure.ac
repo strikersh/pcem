@@ -187,6 +187,7 @@ case "$host" in
            [echo "You need to install the OpenAL library."
            exit -1])
        build_other="yes"
+       LIBS="$LIBS -lutil"
        ;;
     *)
        AC_CHECK_LIB([GL], [glGetError], [], \
@@ -200,6 +201,7 @@ case "$host" in
 esac
 
 LIBS="$LIBS $WX_LIBS $SDL_LIBS"
+echo "$LIBS"
 
 AM_CONDITIONAL(OS_LINUX, [test "$build_linux" = "yes"])
 AM_CONDITIONAL(OS_WINDOWS, [test "$build_win" = "yes"])

@@ -44,7 +44,7 @@
 #include "wx-common.h"
 #include "wx-display.h"
 
-#if __APPLE__
+#if defined(__APPLE__) || defined(__OpenBSD__)
 #define pause __pause
 #include <util.h>
 #include <fcntl.h>
@@ -401,6 +401,24 @@ void wx_initmenu()
         }
 #elif __linux__
         wx_appendmenu(cdrom_submenu, IDM_CDROM_REAL+1, "Host CD/DVD Drive (/dev/cdrom)", wxITEM_RADIO);
+#elif __OpenBSD__
+        for (int c = 0; c < 10; c++)
+        {
+                char s[80];
+                int fd;
+                
+                sprintf(s, "cd%i", c);
+                fd = opendev(s, O_RDONLY, 0, NULL);
+                if (fd > 0)
+                {
+                        char name[255];
+                        
+                        close(fd);
+                        
+                        sprintf(name, "Host CD/DVD Drive (/dev/cd%ic)", c);
+                        wx_appendmenu(cdrom_submenu, IDM_CDROM_REAL+c, name, wxITEM_RADIO);
+                }
+        }
 #elif __APPLE__
         int c;
         

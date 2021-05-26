@@ -6687,6 +6687,7 @@ else $as_nop
 fi
 
        build_other="yes"
+       LIBS="$LIBS -lutil"
        ;;
     *)
        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for glGetError in -lGL" >&5
@@ -6788,6 +6789,7 @@ fi
 esac
 
 LIBS="$LIBS $WX_LIBS $SDL_LIBS"
+echo "$LIBS"
 
  if test "$build_linux" = "yes"; then
   OS_LINUX_TRUE=
